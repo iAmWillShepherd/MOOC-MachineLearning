@@ -19,8 +19,6 @@ grad = zeros(size(theta));
 
 
 % Get Theta 0 and Theta 1 -> n
-lengthOfTheta = length(theta);
-theta_0 = theta(1);
 theta_N = theta(2:length(theta));
 
 % Compute cost J
