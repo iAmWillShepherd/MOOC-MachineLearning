@@ -78,13 +78,10 @@ J = (1 / m) * cost;
 Theta1_unbiased = Theta1(1:end, 2:end);
 Theta2_unbiased = Theta2(1:end, 2:end);
 
-Theta1_squared = Theta1_unbiased * Theta1_unbiased';
-sum_Theta1_squared = sum(sum(Theta1_squared));
+sum_Theta1 = sum(sum(Theta1_unbiased));
+sum_Theta2 = sum(sum(Theta2_unbiased));
 
-Theta2_squared = Theta2_unbiased * Theta2_unbiased';
-sum_Theta2_squared = sum(sum(Theta2_squared));
-
-regularizer = (lambda / (2 * m)) * (sum_Theta1_squared + sum_Theta2_squared);
+regularizer = (lambda / (2 * m)) * (sum_Theta1 + sum_Theta2);
 
 J = J + regularizer;
 
@@ -94,6 +91,5 @@ J = J + regularizer;
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 
 end
