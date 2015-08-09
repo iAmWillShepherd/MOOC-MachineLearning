@@ -69,25 +69,11 @@ a_2_bias = [ones(1, size(a_2, 2)); a_2];
 z_3 = Theta2 * a_2_bias;
 a_3 = sigmoid(z_3);
 
-for i = 1:num_labels
-    cost = -y(i) .* log(a_3(i, :)) - (1 - y(i)) .* log(1 - a_3(i, :));
-    J = J + sum(cost);
-end
+y_eye = eye(num_labels);
+y_matrix = y_eye(y, :);
 
-J = (1 / m) * J;
-
-
-
-
-
-
-
-
-
-
-
-
-
+cost = sum(sum(-y_matrix' .* log(a_3) - (1 - y_matrix') .* log(1 - a_3)));
+J = (1 / m) * cost;
 
 % -------------------------------------------------------------
 
