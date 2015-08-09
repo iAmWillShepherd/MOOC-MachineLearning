@@ -49,7 +49,7 @@ Theta2_grad = zeros(size(Theta2));
 %               containing values from 1..K. You need to map this vector into a 
 %               binary vector of 1's and 0's to be used with the neural network
 %               cost function.
-%
+%not r
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the 
 %               first time.
@@ -62,10 +62,19 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+a_1 = [ones(size(X, 1), 1) X];
+z_2 = Theta1 * a_1';
+a_2 = sigmoid(z_2);
+a_2_bias = [ones(1, size(a_2, 2)); a_2];
+z_3 = Theta2 * a_2_bias;
+a_3 = sigmoid(z_3);
 
+for i = 1:num_labels
+    cost = -y(i) .* log(a_3(i, :)) - (1 - y(i)) .* log(1 - a_3(i, :));
+    J = J + sum(cost);
+end
 
-
-
+J = (1 / m) * J;
 
 
 
