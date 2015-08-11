@@ -78,8 +78,8 @@ J = (1 / m) * cost;
 Theta1_unbiased = Theta1(1:end, 2:end);
 Theta2_unbiased = Theta2(1:end, 2:end);
 
-sum_Theta1 = sum(sum(Theta1_unbiased));
-sum_Theta2 = sum(sum(Theta2_unbiased));
+sum_Theta1 = sum(sum(Theta1_unbiased .^ 2));
+sum_Theta2 = sum(sum(Theta2_unbiased .^ 2));
 
 regularizer = (lambda / (2 * m)) * (sum_Theta1 + sum_Theta2);
 
