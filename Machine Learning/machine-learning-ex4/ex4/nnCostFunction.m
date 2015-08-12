@@ -62,21 +62,21 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-a_1 = [ones(size(X, 1), 1) X];
-z_2 = Theta1 * a_1';
-a_2 = sigmoid(z_2);
-a_2_bias = [ones(1, size(a_2, 2)); a_2];
-z_3 = Theta2 * a_2_bias;
-a_3 = sigmoid(z_3);
+a1 = [ones(size(X, 1), 1) X];
+z2 = Theta1 * a1';
+a2 = sigmoid(z2);
+a2_wBias = [ones(1, size(a2, 2)); a2];
+z3 = Theta2 * a2_wBias;
+a3 = sigmoid(z3);
 
 y_eye = eye(num_labels);
 y_matrix = y_eye(y, :);
 
-cost = sum(sum(-y_matrix' .* log(a_3) - (1 - y_matrix') .* log(1 - a_3)));
+cost = sum(sum(-y_matrix' .* log(a3) - (1 - y_matrix') .* log(1 - a3)));
 J = (1 / m) * cost;
 
-Theta1_unbiased = Theta1(1:end, 2:end);
-Theta2_unbiased = Theta2(1:end, 2:end);
+Theta1_unbiased = Theta1(:, 2:end);
+Theta2_unbiased = Theta2(:, 2:end);
 
 sum_Theta1 = sum(sum(Theta1_unbiased .^ 2));
 sum_Theta2 = sum(sum(Theta2_unbiased .^ 2));
@@ -88,9 +88,13 @@ J = J + regularizer;
 all_combos = eye(num_labels);    
 y_matrix = all_combos(y,:);
 
-output = a_3' - y_matrix;
-Theta2_grad = (output * Theta2_unbiased)' .* sigmoid(z_2);
-Theta1_grad = (Theta2_grad * Theta1_unbiased);
+d3 = a3 - y_matrix';
+d2 = (Theta2_unbiased' * d3) .* sigmoidGradient(z2);
+delta1 = d2 * a1;
+delta2 = d3 * a2_wBias';
+
+Theta1_grad = (1/m) * delta1;
+Theta2_grad = (1/m) * delta2;
 
 % -------------------------------------------------------------
 
