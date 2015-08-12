@@ -49,7 +49,7 @@ Theta2_grad = zeros(size(Theta2));
 %               containing values from 1..K. You need to map this vector into a 
 %               binary vector of 1's and 0's to be used with the neural network
 %               cost function.
-%not r
+%
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the 
 %               first time.
@@ -84,6 +84,13 @@ sum_Theta2 = sum(sum(Theta2_unbiased .^ 2));
 regularizer = (lambda / (2 * m)) * (sum_Theta1 + sum_Theta2);
 
 J = J + regularizer;
+
+all_combos = eye(num_labels);    
+y_matrix = all_combos(y,:);
+
+output = a_3' - y_matrix;
+Theta2_grad = (output * Theta2_unbiased)' .* sigmoid(z_2);
+Theta1_grad = (Theta2_grad * Theta1_unbiased);
 
 % -------------------------------------------------------------
 
