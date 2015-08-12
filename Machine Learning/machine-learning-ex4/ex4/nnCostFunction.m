@@ -96,6 +96,11 @@ delta2 = d3 * a2_wBias';
 Theta1_grad = (1/m) * delta1;
 Theta2_grad = (1/m) * delta2;
 
+regularizedGrad1 = (lambda / m) * [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+regularizedGrad2 = (lambda / m) * [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
+
+Theta1_grad = Theta1_grad + regularizedGrad1;
+Theta2_grad = Theta2_grad + regularizedGrad2;
 % -------------------------------------------------------------
 
 % =========================================================================
