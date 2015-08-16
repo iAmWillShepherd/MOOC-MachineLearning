@@ -53,10 +53,16 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
+thetas = [0; 0];
+[cost, thetas] = linearRegCostFunction(X, y, thetas, lambda);
 
-
-
-
+for i = 1:m
+    [cost_train, theta_train] = linearRegCostFunction(X(1:i, :), y(1:i, :), [0; 0], 0);
+    error_train(i, :) = (1 / (2 * m)) * (sum((theta_train - thetas).^2));
+    
+    [cost_val, theta_val] = linearRegCostFunction(Xval(1:i, :), yval(1:i, :), [0; 0], 0);
+    error_val(i, :) = (1 / (2 * m)) * (sum((theta_val - thetas).^2));
+end
 
 
 % -------------------------------------------------------------
