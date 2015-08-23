@@ -97,14 +97,14 @@ while ~isempty(email_contents)
     %       str2). It will return 1 only if the two strings are equivalent.
     %
 
-
-
-
-
-
-
-
-
+%not sure if vocabList is a hashmap, so doing O(n) lookups
+for idx = 1:length(vocabList)
+    currWord = vocabList(idx);
+    
+    if (strcmp(str, currWord) == 1)
+        word_indices = [word_indices; idx];
+    end
+end
 
     % =============================================================
 
